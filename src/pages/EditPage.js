@@ -1,9 +1,10 @@
 import { TextField, Button } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useNoticeSnackbarStatus } from "../components/NoticeSnackbar";
 import { useTodosStatus } from "../hooks";
 
 export default function EditPage() {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const noticeSnackbarStatus = useNoticeSnackbarStatus();
@@ -30,15 +31,15 @@ export default function EditPage() {
       return;
     }
 
-    const newTodoId = todosStatus.addTodo(
+    const newTodoId = todosStatus.modifyTodoById(
+      todo.id,
       form.regDate.value,
       form.content.value
     );
 
-    noticeSnackbarStatus.open(`${newTodoId}번 할 일이 수정되었습니다.`);
+    noticeSnackbarStatus.open(`${todo.id}번 할 일이 수정되었습니다.`);
 
-    form.content.value = "";
-    form.content.focus();
+    navigate(-1);
   };
 
   const regDateForInput = todo.regDate.substr(0, 16).replace(" ", "T");
