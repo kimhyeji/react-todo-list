@@ -1,10 +1,15 @@
 import { TextField, Button } from "@mui/material";
+import { useParams } from "react-router-dom";
 import { useNoticeSnackbarStatus } from "../components/NoticeSnackbar";
 import { useTodosStatus } from "../hooks";
 
 export default function EditPage() {
+  const { id } = useParams();
+
   const noticeSnackbarStatus = useNoticeSnackbarStatus();
   const todosStatus = useTodosStatus();
+
+  const todo = todosStatus.findTodoById(id);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -30,8 +35,13 @@ export default function EditPage() {
       form.content.value
     );
 
-    noticeSnackbarStatus.open(`${newTodoId}번 할일이 추가되었습니다.`);
+    noticeSnackbarStatus.open(`${newTodoId}번 할 일이 수정되었습니다.`);
+
+    form.content.value = "";
+    form.content.focus();
   };
+
+  const regDateForInput = todo.regDate.substr(0, 16).replace(" ", "T");
 
   return (
     <>
@@ -41,6 +51,7 @@ export default function EditPage() {
           focused
           type="datetime-local"
           name="regDate"
+          defaultValue={regDateForInput}
         />
         <TextField
           name="content"
@@ -49,6 +60,7 @@ export default function EditPage() {
           InputProps={{ className: "flex-1 flex-col" }}
           inputProps={{ className: "flex-1" }}
           multiline
+          defaultValue={todo.content}
         />
         <Button type="submit" variant="contained">
           <span>
