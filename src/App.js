@@ -5,6 +5,7 @@ import {
   Navigate,
   useLocation,
   NavLink,
+  useNavigate,
 } from "react-router-dom";
 
 import MainPage from "./pages/MainPage";
@@ -13,6 +14,7 @@ import EditPage from "./pages/EditPage";
 import { NoticeSnackbar } from "./components/NoticeSnackbar";
 
 function App() {
+  const navigate = useNavigate();
   const location = useLocation();
 
   return (
@@ -27,9 +29,13 @@ function App() {
               </NavLink>
             )}
             {location.pathname != "/main" && (
-              <NavLink to="/main" className="select-none">
+              <span
+                to="/main"
+                className="select-none"
+                onClick={() => navigate(-1)}
+              >
                 리스트
-              </NavLink>
+              </span>
             )}
           </div>
         </Toolbar>
