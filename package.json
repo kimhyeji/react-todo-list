@@ -2,7 +2,7 @@
   "name": "react-todo-list",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://kimhyeji.github.io/re-test/",
+  "homepage": "https://kimhyeji.github.io/my_todoList/",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
